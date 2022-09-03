@@ -4,7 +4,7 @@ function main()
   const config = getConfig()
 
   const jiraTickets = getJiraTickets()
-  const tickets = prepareTickets(jiraTickets)
+  const tickets = prepare(jiraTickets)
   fillJiraTicketsToSheet(sheet, tickets)
 }
 
@@ -15,20 +15,21 @@ function getJiraTickets()
   const response = UrlFetchApp.fetch(url, {
     contentType: "application/json",
     headers: {
-      "Authorization": "Basic " + getToken()
+      // "Authorization": "Basic " + getToken()
     }
   })
 
-  return JSON.parse(response)
+  return ""//JSON.parse(response)
 }
 
 function prepare(tickets)
 {
+  return ++tickets
 }
 
-function fillJiraTicketsToSheet(tickets)
+function fillJiraTicketsToSheet(sheet, tickets)
 {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('JIRA Tickets')
+  // const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('JIRA Tickets')
   sheet.clear()
 
 tickets = [[1, 2, 3], [3,4,8]]
@@ -40,3 +41,5 @@ function getConfig()
 {
   return {}
 }
+
+export { prepare, getConfig }
